@@ -5,14 +5,18 @@ import { Link } from "react-router-dom"
 
 const user = { _id: "ggg", role: "admin" }
 
+
 const Header = () => {
   const [isopen, setIsopen] = useState<boolean>(false)
+  const logoutHandler = () => {
+    setIsopen(false)
+  }
   return (
-    <nav>
+    <nav className="header">
 
-      <Link to={'/'}>Home</Link>
-      <Link to={'/search'}><FaSearch /></Link>
-      <Link to={'/cart'}><FaShoppingBag /></Link>
+      <Link to={'/'} onClick={() => setIsopen(false)}>HOME</Link>
+      <Link to={'/search'} onClick={() => setIsopen(false)}><FaSearch /></Link>
+      <Link to={'/cart'} onClick={() => setIsopen(false)}><FaShoppingBag /></Link>
 
       {
         user?._id ? (
@@ -22,10 +26,10 @@ const Header = () => {
             </button>
             <dialog open={isopen}>
               <div>
-                {user?.role === "admin" && <Link to={'/admin/dashboard'}>Dashboard</Link>}
+                {user?.role === "admin" && <Link to={'/admin/dashboard'} onClick={() => setIsopen(false)}>Dashboard</Link>}
 
-                <Link to={'/orders'}>Orders</Link>
-                <button>
+                <Link to={'/orders'} onClick={() => setIsopen(false)}>Orders</Link>
+                <button onClick={logoutHandler}>
                   <FaSignOutAlt />
                 </button>
               </div>
